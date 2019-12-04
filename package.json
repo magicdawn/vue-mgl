@@ -1,0 +1,41 @@
+{
+  "name": "vue-mgl",
+  "version": "0.0.1",
+  "description": "mapbox-gl vue components (map, layers, sources, controls)",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "test-cover": "nyc --reporter=lcov --reporter=text mocha",
+    "report-cover": "codecov"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magicdawn/vue-mgl.git"
+  },
+  "keywords": [
+    "mapbox",
+    "gl",
+    "mapbox-gl",
+    "vue-mapbox",
+    "vue-mapbox-gl",
+    "vue-mgl"
+  ],
+  "author": "magicdawn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/magicdawn/vue-mgl/issues"
+  },
+  "homepage": "https://github.com/magicdawn/vue-mgl#readme",
+  "devDependencies": {
+    "@magicdawn/eslint-config": "^0.0.1",
+    "@magicdawn/prettier-config": "^0.0.1",
+    "codecov": "^3.3.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.0.0",
+    "should": "^13.2.3",
+    "eslint": "latest",
+    "prettier": "latest",
+    "husky": "latest",
+    "lint-staged": "latest"
+  }
+}
