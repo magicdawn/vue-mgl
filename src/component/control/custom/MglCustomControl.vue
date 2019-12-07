@@ -11,7 +11,7 @@ import BaseControl from '../BaseControl.js'
 
 export default {
   mixins: [MglComponentMixin],
-  components: {BaseControl},
+  components: { BaseControl },
 
   props: {
     position: {

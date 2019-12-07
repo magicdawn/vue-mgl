@@ -7,7 +7,7 @@
 <script>
 import mgl from 'mapbox-gl'
 import Vue from 'vue'
-import {isEqual, pick} from 'lodash'
+import { isEqual, pick } from 'lodash'
 import preventObserve from '../../util/preventObserve.js'
 
 // part
@@ -79,7 +79,7 @@ export default {
 
         this.ready = true
         this.$emit('ready')
-        this.$emit('load', {map, component: this})
+        this.$emit('load', { map, component: this })
       })
     },
 

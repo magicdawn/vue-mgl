@@ -1,7 +1,7 @@
 <template lang="html">
   <MglCustomControl
     :position="position"
-    :container-props="{class: 'mapboxgl-ctrl mapboxgl-ctrl-group'}"
+    :container-props="{ class: 'mapboxgl-ctrl mapboxgl-ctrl-group' }"
   >
     <button
       class="mapboxgl-ctrl-icon mapboxgl-ctrl-pitch"
@@ -20,7 +20,7 @@ import MglCustomControl from './MglCustomControl.vue'
 
 export default {
   mixins: [MglComponentMixin],
-  components: {MglCustomControl},
+  components: { MglCustomControl },
 
   props: {
     position: {

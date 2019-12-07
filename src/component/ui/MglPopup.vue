@@ -49,7 +49,7 @@ export default {
   },
 
   mounted() {
-    const {map} = this.__context()
+    const { map } = this.__context()
     this.map = map
     this.init()
     this.ready = true
