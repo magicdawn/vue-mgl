@@ -21,11 +21,13 @@ export default {
     return null
   },
 
+  inject: ['getSourceId'],
+
   props: {
     id: {
       type: String,
       default() {
-        return `mgl-base-layer-${this._uid}`
+        return `mgl-layer-${this._uid}`
       },
     },
     type: {
@@ -38,11 +40,7 @@ export default {
     // source related
     sourceId: {
       type: String,
-      default() {
-        return `mgl-base-layer-source-${this._uid}`
-      },
     },
-    source: [String, Object],
     sourceLayer: String,
 
     // layer
@@ -95,12 +93,22 @@ export default {
   },
 
   computed: {
+    finalSourceId() {
+      // props
+      if (this.sourceId) return this.sourceId
+
+      // inject
+      if (this.getSourceId && this.getSourceId) return this.getSourceId()
+
+      throw new Error('sourceId empty for the layer')
+    },
+
     // the layer
     layerEntity() {
       const layer = {
         id: this.id,
         type: this.type,
-        source: this.sourceId,
+        source: this.finalSourceId,
       }
 
       if (this['source-layer']) layer['source-layer'] = this['source-layer']
@@ -114,10 +122,15 @@ export default {
     },
   },
 
-  mounted() {
+  beforeMount() {
     const { map, component } = this.__context()
     this.map = map
     this.init()
+  },
+  destroyed() {
+    if (this.map.getLayer(this.id)) {
+      this.map.removeLayer(this.id)
+    }
   },
 
   methods: {
@@ -136,15 +149,5 @@ export default {
       // add
       this.map.addLayer(this.layerEntity, this.before)
     },
-  },
-
-  beforeDestroy() {
-    if (this.map.getLayer(this.id)) {
-      this.map.removeLayer(this.id)
-    }
-
-    if (this.source && this.map.getSource(this.sourceId)) {
-      this.map.removeSource(this.sourceId)
-    }
   },
 }

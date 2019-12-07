@@ -1,4 +1,4 @@
-import { omit } from 'lodash'
+import { omit, pick } from 'lodash'
 import { enumPropValidator } from '../../util/index.js'
 import MglComponentMixin from '../common/MglComponentMixin.js'
 
@@ -42,98 +42,162 @@ export const geojsonOnlyProps = {
   },
 }
 
-const MglSource = {
+const props = {
+  id: {
+    type: String,
+    default() {
+      return `mgl-source-${this.type}-${this._uid}`
+    },
+  },
+
+  type: {
+    type: String,
+    required: true,
+    validator: enumPropValidator(['vector', 'raster', 'raster-dem', 'geojson', 'image', 'video']),
+  },
+
+  url: {
+    type: String,
+  },
+
+  tiles: {
+    type: Array,
+  },
+
+  // "type": "raster", Defaults to 512
+  tileSize: {
+    type: Number,
+  },
+
+  bounds: {
+    type: Array,
+  },
+
+  scheme: {
+    type: String,
+    validator: enumPropValidator(['tms', 'xyz']),
+  },
+
+  minzoom: {
+    type: Number,
+  },
+
+  maxzoom: {
+    type: Number,
+  },
+
+  attribution: {
+    type: String,
+  },
+
+  // type=raster-dem only
+  // https://docs.mapbox.com/mapbox-gl-js/style-spec/#sources-raster-dem-encoding
+  // Optional enum. One of "terrarium", "mapbox". Defaults to "mapbox".
+  encoding: {
+    type: String,
+  },
+
+  ...geojsonOnlyProps,
+
+  /**
+   * image & video
+   *
+   * image: url & coordinates
+   * video: urls & coordinates
+   */
+  coordinates: {
+    type: Array,
+  },
+
+  urls: {
+    type: Array,
+  },
+}
+
+const commonPropKeys = ['id', 'type']
+const selectProps = arr => pick(props, [...commonPropKeys, ...arr])
+export const propsRegistry = {
+  'image': selectProps(['url', 'coordinates']),
+  'video': selectProps(['urls', 'coordinates']),
+  'vector': selectProps([
+    'url',
+    'tiles',
+    'bounds',
+    'minzoom',
+    'maxzoom',
+    'tileSize',
+    'scheme',
+    'attribution',
+  ]),
+  'raster': selectProps([
+    'url',
+    'tiles',
+    'bounds',
+    'minzoom',
+    'maxzoom',
+    'tileSize',
+    'scheme',
+    'attribution',
+  ]),
+  'raster-dem': selectProps([
+    'url',
+    'tiles',
+    'bounds',
+    'minzoom',
+    'maxzoom',
+    'tileSize',
+    'attribution',
+    'encoding',
+  ]),
+  'geojson': selectProps([
+    // only + extra
+    ...Object.keys(geojsonOnlyProps),
+    'maxzoom',
+    'attribution',
+  ]),
+}
+
+export default {
+  name: 'MglSource',
+
   mixins: [MglComponentMixin],
 
+  // for composition
+  // <MglSource>
+  //   <MglLayer />
+  // </MglSource>
   render(h) {
-    return h('div', this.$slots.default)
+    return this.$slots.default
+  },
+  provide() {
+    return {
+      getSourceId: this.getSourceId,
+    }
   },
 
-  props: {
-    id: {
-      type: String,
-      default: () => `mgl-source-${this.type}-${this._uid}`,
-    },
-
-    type: {
-      type: String,
-      required: true,
-      validator: enumPropValidator(['vector', 'raster', 'raster-dem', 'geojson', 'image', 'video']),
-    },
-
-    url: {
-      type: String,
-    },
-
-    tiles: {
-      type: Array,
-    },
-
-    // "type": "raster", Defaults to 512
-    tileSize: {
-      type: Number,
-    },
-
-    bounds: {
-      type: Array,
-    },
-
-    scheme: {
-      type: String,
-      validator: enumPropValidator(['tms', 'xyz']),
-    },
-
-    minzoom: {
-      type: Number,
-    },
-
-    maxzoom: {
-      type: Number,
-    },
-
-    attribution: {
-      type: String,
-    },
-
-    // type=raster-dem only
-    // https://docs.mapbox.com/mapbox-gl-js/style-spec/#sources-raster-dem-encoding
-    // Optional enum. One of "terrarium", "mapbox". Defaults to "mapbox".
-    encoding: {
-      type: String,
-    },
-
-    ...geojsonOnlyProps,
-
-    /**
-     * image & video
-     *
-     * image: url & coordiantes
-     * video: urls & coordiantes
-     */
-    coordiantes: {
-      type: Array,
-    },
-
-    urls: {
-      type: Array,
-    },
+  data() {
+    return {
+      ready: false,
+    }
   },
 
-  computed: {},
+  props,
 
   watch: {
+    // image & video
     coordinates: {
       deep: true,
       handler(val) {
-        if (!val) return
+        if (!val || !this.ready) return
         this.getSource().setCoordinates(val)
       },
     },
 
+    // geojson data
     data: {
       deep: true,
       handler(val) {
-        if (!val) return
+        if (!val || !this.ready) return
         this.getSource().setData(val)
       },
     },
@@ -141,6 +205,7 @@ const MglSource = {
 
   beforeMount() {
     const { map } = this.__context()
+    this.map = map
     this.add()
   },
   destroyed() {
@@ -148,6 +213,11 @@ const MglSource = {
   },
 
   methods: {
+    // context
+    getSourceId() {
+      return this.id
+    },
+
     getSource() {
       if (!this.map) return
       return this.map.getSource(this.id)
@@ -155,16 +225,16 @@ const MglSource = {
 
     add() {
       if (!this.map) return
-      const source = omit(this.$props, ['id'])
+      const sourceKeys = Object.keys(omit(propsRegistry[this.type], ['id']))
+      const source = pick(this.$props, sourceKeys)
       this.map.addSource(this.id, source)
+
+      this.ready = true
+      this.$emit('ready')
     },
     remove() {
-      if (!this.map) return
-      if (this.getSource(this.id)) {
-        this.removeSource(this.id)
-      }
+      if (!this.map || !this.map.getSource(this.id)) return
+      this.map.removeSource(this.id)
     },
   },
 }
-
-export default MglSource

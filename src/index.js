@@ -54,6 +54,8 @@ globalify({ MglSource, MglLayer })
 // simple layer
 import MglVideoLayer from './component/layer/MglVideoLayer.js'
 import MglImageLayer from './component/layer/MglImageLayer.js'
+export { MglVideoLayer, MglImageLayer }
+globalify({ MglVideoLayer, MglImageLayer })
 
 // complex layer
 

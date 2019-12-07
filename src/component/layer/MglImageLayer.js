@@ -1,81 +1,98 @@
-import omit from 'lodash/omit'
-import pick from 'lodash/pick'
-import isEqual from 'lodash/isEqual'
+import { pick, omit, isEqual } from 'lodash'
 import MglComponentMixin from '../common/MglComponentMixin.js'
 import MglLayer from './MglLayer.js'
+import MglSource, { propsRegistry } from '../source/MglSource.js'
+
+// sourceProps
+// id, type, url, coordiantes
+// id override
+// type = image
+const propsFromSource = omit(propsRegistry.image, ['id', 'type'])
+
+// layerProps
+// id override
+// type=raster
+// sourceId as self props
+const propsFromLayer = omit(MglLayer.props, ['id', 'type', 'sourceId'])
+
+const props = {
+  ...propsFromSource,
+  sourceId: {
+    type: String,
+    default() {
+      return `mgl-image-layer-${this._uid}-source`
+    },
+  },
+
+  ...propsFromLayer,
+  id: {
+    type: String,
+    default() {
+      return `mgl-image-layer-${this._uid}`
+    },
+  },
+}
 
 export default {
   mixins: [MglComponentMixin],
 
   render(h) {
-    return h(MglLayer, {
-      props: this.layer,
-      on: {
-        ...this.$listeners,
-        ready: () => {
-          this.ready = true
-          this.$emit('ready')
-        },
-      },
-    })
+    return (
+      <MglSource
+        {...{
+          props: this.sourceProps,
+          on: {
+            ready: () => {
+              this.sourceReady = true
+            },
+          },
+        }}
+      >
+        <MglLayer
+          {...{
+            props: this.layerProps,
+            on: {
+              ready: () => {
+                this.layerReady = true
+              },
+            },
+          }}
+        ></MglLayer>
+      </MglSource>
+    )
   },
 
   data() {
     return {
-      ready: false,
+      sourceReady: false,
+      layerReady: false,
     }
   },
 
-  props: {
-    ...omit(MglLayer.props, ['type']),
-    id: {
-      ...MglLayer.props.id,
-      default() {
-        return `mgl-image-layer-${this._uid}`
-      },
-    },
-    sourceId: {
-      ...MglLayer.props.sourceId,
-      default() {
-        return `mgl-image-layer-source-${this._uid}`
-      },
-    },
-
-    // image specific
-    // https://docs.mapbox.com/mapbox-gl-js/style-spec#sources-image
-    url: {
-      type: String,
-      required: true,
-    },
-    coordinates: {
-      type: Array,
-      required: true,
-    },
-  },
+  props,
 
   computed: {
-    layer() {
+    sourceProps() {
       return {
-        ...pick(this.$props, Object.keys(MglLayer.props)),
+        ...pick(this.$props, Object.keys(propsFromSource)),
+        id: this.sourceId,
+        type: 'image',
+      }
+    },
+
+    layerProps() {
+      return {
+        ...pick(this.$props, Object.keys(propsFromLayer)),
+        id: this.id,
         type: 'raster',
-        source: {
-          type: 'image',
-          url: this.url,
-          coordinates: this.coordinates,
-        },
+        sourceId: this.sourceId, // 不传, 使用 inject 也可以
       }
     },
   },
 
   watch: {
-    coordinates(val, old) {
-      if (isEqual(val, old)) return
-      if (!this.ready) return
-      return this.map.getSource(this.sourceId).setCoordinates(val)
-    },
-
     url(val) {
-      if (!this.ready) return
+      if (!this.sourceReady) return
       return this.map.getSource(this.sourceId).updateImage({ url: val })
     },
   },
