@@ -4,7 +4,7 @@ export default {
   inject: ['getMapComponent'],
 
   props: {
-    // the VueMapboxGl Vue instance
+    // the MglMap component instance
     mapComponent: {
       type: Object,
     },
@@ -13,10 +13,17 @@ export default {
   methods: {
     // the current context
     __context() {
+      const msg = 'this component requires a MglMap context'
+
+      // inject works
+      assert(this.getMapComponent, msg)
+
+      // check map & component
       const component = this.mapComponent || this.getMapComponent()
+      const map = component && component.map
       assert(component, 'this component requires a MglMap context')
-      const map = component.map
       assert(map, 'this component requires a MglMap context')
+
       return { map, component }
     },
   },
