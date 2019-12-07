@@ -1,17 +1,22 @@
+export const globalComponents = {}
+const globalify = obj => Object.assign(globalComponents, obj)
+
 // map
 import MglMap from './component/MglMap/index.vue'
-export {MglMap}
+export { MglMap }
+globalify({ MglMap })
 
 // mixin
-import SubComponentMixin from './component/common/SubComponentMixin.js'
-export {SubComponentMixin}
+import MglComponentMixin from './component/common/MglComponentMixin.js'
+export { MglComponentMixin }
+globalify({ MglComponentMixin })
 
 // control
-import MglNavigationControl from './component/control/NavigationControl.js'
-import MglGeolocateControl from './component/control/GeolocateControl.js'
-import MglAttributionControl from './component/control/AttributionControl.js'
-import MglScaleControl from './component/control/ScaleControl.js'
-import MglFullscreenControl from './component/control/FullscreenControl.js'
+import MglNavigationControl from './component/control/MglNavigationControl.js'
+import MglGeolocateControl from './component/control/MglGeolocateControl.js'
+import MglAttributionControl from './component/control/MglAttributionControl.js'
+import MglScaleControl from './component/control/MglScaleControl.js'
+import MglFullscreenControl from './component/control/MglFullscreenControl.js'
 export {
   MglNavigationControl,
   MglGeolocateControl,
@@ -19,22 +24,38 @@ export {
   MglScaleControl,
   MglFullscreenControl,
 }
+globalify({
+  MglNavigationControl,
+  MglGeolocateControl,
+  MglAttributionControl,
+  MglScaleControl,
+  MglFullscreenControl,
+})
 
 // custom control
-import MglCustomControl from './component/control/custom/CustomControl.vue'
-import MglPitchControl from './component/control/custom/PitchControl.vue'
-import MglFlyToControl from './component/control/custom/FlyToControl.vue'
-export {MglCustomControl, MglPitchControl, MglFlyToControl}
+import MglMglCustomControl from './component/control/custom/MglCustomControl.vue'
+import MglPitchControl from './component/control/custom/MglPitchControl.vue'
+import MglFlyToControl from './component/control/custom/MglFlyToControl.vue'
+export { MglMglCustomControl, MglPitchControl, MglFlyToControl }
+globalify({ MglMglCustomControl, MglPitchControl, MglFlyToControl })
 
 // ui control
-import MglMarker from './component/ui/Marker.vue'
-import MglPopup from './component/ui/Popup.vue'
-export {MglMarker, MglPopup}
+import MglMarker from './component/ui/MglMarker.vue'
+import MglPopup from './component/ui/MglPopup.vue'
+export { MglMarker, MglPopup }
+globalify({ MglMarker, MglPopup })
 
 // source
-import MglBaseLayer from './component/layer/BaseLayer.js'
-import MglVideoLayer from './component/layer/VideoLayer.js'
-import MglImageLayer from './component/layer/ImageLayer.js'
+import MglSource from './component/source/MglSource.js'
+import MglLayer from './component/layer/MglLayer.js'
+export { MglSource, MglLayer }
+globalify({ MglSource, MglLayer })
+
+// simple layer
+import MglVideoLayer from './component/layer/MglVideoLayer.js'
+import MglImageLayer from './component/layer/MglImageLayer.js'
+
+// complex layer
 
 // import GeojsonLayer from './components/layer/GeojsonLayer.js'
 // import ImageLayer from './components/layer/ImageLayer.vue'
@@ -52,83 +73,13 @@ import MglImageLayer from './component/layer/ImageLayer.js'
 // import BuildingLayer from './components/inherit/BuildingLayer'
 //
 
-//
-// // layer
-// export const MglGeojsonLayer = GeojsonLayer
-// export const MglImageLayer = ImageLayer
-// export const MglCanvasLayer = CanvasLayer
-// export const MglRasterLayer = RasterLayer
-// export const MglTileLayer = TileLayer
-// export const MglVectorlayer = Vectorlayer
-// export const MglVideoLayer = VideoLayer
-// export const MglPlayRasterLayer = PlayRasterLayer
-//
-//
-// // inherit
-// export const MglDraggableMarker = DraggableMarker
-// export const MglFlyToControl = FlyToControl
-// export const MglLineLayer = LineLayer
-// export const MglVectorTrafficLayer = VectorTrafficLayer
-// export const MglPolygon = Polygon
-// export const MglBuildingLayer = BuildingLayer
-
 /**
  * 全局组件
  */
-
-const components = {
-  MglMap,
-
-  // control
-  MglNavigationControl,
-  MglGeolocateControl,
-  MglAttributionControl,
-  MglScaleControl,
-  MglFullscreenControl,
-
-  // custom control
-  MglCustomControl,
-  MglPitchControl,
-  MglFlyToControl,
-
-  // ui
-  MglMarker,
-  MglPopup,
-
-  // source
-  MglBaseLayer,
-  MglVideoLayer,
-  MglImageLayer,
-
-  // MglPitchControl,
-  // layer
-  // MglGeojsonLayer,
-  // MglImageLayer,
-  // MglCanvasLayer,
-  // MglRasterLayer,
-  // MglTileLayer,
-  // MglVectorlayer,
-  // MglVideoLayer,
-  // MglPlayRasterLayer,
-  // ui
-  // MglMarker,
-  // MglMarkers,
-  // MglMarkerCluster,
-  // MglPopup,
-  //
-  // // inherit
-  // MglDraggableMarker,
-  // MglFlyToControl,
-  // MglLineLayer,
-  // MglVectorTrafficLayer,
-  // MglPolygon,
-  // MglBuildingLayer,
-}
-
 const VueMapboxGlPlugin = {
   install(Vue, options) {
-    for (let id in components) {
-      const C = components[id]
+    for (let id in globalComponents) {
+      const C = globalComponents[id]
       Vue.component(id, C)
     }
   },
@@ -137,4 +88,4 @@ export default VueMapboxGlPlugin
 
 // mgl I'm using
 import mgl from 'mapbox-gl'
-export {mgl}
+export { mgl }

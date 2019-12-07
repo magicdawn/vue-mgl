@@ -8,14 +8,14 @@
 
 <script>
 import mgl from 'mapbox-gl'
-import SubComponentMixin from '../common/SubComponentMixin.js'
+import MglComponentMixin from '../common/MglComponentMixin.js'
 
 /**
  * https://www.mapbox.com/mapbox-gl-js/api#marker
  */
 
 export default {
-  mixins: [SubComponentMixin],
+  mixins: [MglComponentMixin],
 
   props: {
     // marker

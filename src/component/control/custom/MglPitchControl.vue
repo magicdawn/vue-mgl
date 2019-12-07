@@ -1,5 +1,5 @@
 <template lang="html">
-  <CustomControl
+  <MglCustomControl
     :position="position"
     :container-props="{class: 'mapboxgl-ctrl mapboxgl-ctrl-group'}"
   >
@@ -11,16 +11,16 @@
     >
       {{ current }}
     </button>
-  </CustomControl>
+  </MglCustomControl>
 </template>
 
 <script>
-import SubComponentMixin from '../../common/SubComponentMixin.js'
-import CustomControl from './CustomControl.vue'
+import MglComponentMixin from '../../common/MglComponentMixin.js'
+import MglCustomControl from './MglCustomControl.vue'
 
 export default {
-  mixins: [SubComponentMixin],
-  components: {CustomControl},
+  mixins: [MglComponentMixin],
+  components: {MglCustomControl},
 
   props: {
     position: {

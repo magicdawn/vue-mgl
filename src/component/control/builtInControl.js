@@ -1,5 +1,5 @@
 import mgl from 'mapbox-gl'
-import {pick, omit} from 'lodash'
+import { pick, omit } from 'lodash'
 import BaseControl from './BaseControl.js'
 
 export const commonKeys = Object.keys(BaseControl.props).filter(k => BaseControl.props[k].common)

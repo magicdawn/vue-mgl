@@ -1,7 +1,7 @@
 <template lang="html">
-  <CustomControl
+  <MglCustomControl
     :position="position"
-    :container-props="{class: 'mapboxgl-ctrl mapboxgl-ctrl-group'}"
+    :container-props="{ class: 'mapboxgl-ctrl mapboxgl-ctrl-group' }"
   >
     <button
       class="mapboxgl-ctrl-icon mapboxgl-ctrl-reset-view mapboxgl-ctrl-geolocate"
@@ -11,20 +11,20 @@
     >
       <span class="mapboxgl-ctrl-icon" aria-hidden="true"></span>
     </button>
-  </CustomControl>
+  </MglCustomControl>
 </template>
 
 <script>
-import SubComponentMixin from '../../common/SubComponentMixin.js'
-import CustomControl from './CustomControl.vue'
+import MglComponentMixin from '../../common/MglComponentMixin.js'
+import MglCustomControl from './MglCustomControl.vue'
 
 /**
  * purpose: 点击按钮恢复到一个自定义的 *初始状态*
  */
 
 export default {
-  mixins: [SubComponentMixin],
-  components: {CustomControl},
+  mixins: [MglComponentMixin],
+  components: { MglCustomControl },
 
   props: {
     position: {

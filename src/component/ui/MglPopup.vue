@@ -4,10 +4,10 @@
 
 <script>
 import mgl from 'mapbox-gl'
-import SubComponentMixin from '../common/SubComponentMixin.js'
+import MglComponentMixin from '../common/MglComponentMixin.js'
 
 export default {
-  mixins: [SubComponentMixin],
+  mixins: [MglComponentMixin],
 
   data() {
     return {

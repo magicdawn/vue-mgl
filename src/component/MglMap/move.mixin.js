@@ -72,10 +72,7 @@ export default {
         let eventData = {
           eventId: `panBy-${('' + Math.random()).split('.')[1]}`,
         }
-        this.map.on(
-          'moveend',
-          this._catchMoveFabric(eventData, resolve, reject)
-        )
+        this.map.on('moveend', this._catchMoveFabric(eventData, resolve, reject))
         this.map.panBy(offset, options, eventData)
       })
     },
@@ -95,10 +92,7 @@ export default {
         let eventData = {
           eventId: `panTo-${('' + Math.random()).split('.')[1]}`,
         }
-        this.map.on(
-          'moveend',
-          this._catchMoveFabric(eventData, resolve, reject)
-        )
+        this.map.on('moveend', this._catchMoveFabric(eventData, resolve, reject))
         this.map.panTo(coordinates, options, eventData)
       })
     },
@@ -115,10 +109,7 @@ export default {
         let eventData = {
           eventId: `zoomTo-${('' + Math.random()).split('.')[1]}`,
         }
-        this.map.on(
-          'zoomend',
-          this._catchZoomFabric(eventData, resolve, reject)
-        )
+        this.map.on('zoomend', this._catchZoomFabric(eventData, resolve, reject))
         this.map.zoomTo(zoom, options, eventData)
       })
     },
@@ -128,10 +119,7 @@ export default {
         let eventData = {
           eventId: `zoomIn-${('' + Math.random()).split('.')[1]}`,
         }
-        this.map.on(
-          'zoomend',
-          this._catchZoomFabric(eventData, resolve, reject)
-        )
+        this.map.on('zoomend', this._catchZoomFabric(eventData, resolve, reject))
         this.map.zoomIn(options, eventData)
       })
     },
@@ -141,10 +129,7 @@ export default {
         let eventData = {
           eventId: `zoomOut-${('' + Math.random()).split('.')[1]}`,
         }
-        this.map.on(
-          'zoomend',
-          this._catchZoomFabric(eventData, resolve, reject)
-        )
+        this.map.on('zoomend', this._catchZoomFabric(eventData, resolve, reject))
         this.map.zoomOut(options, eventData)
       })
     },
@@ -161,10 +146,7 @@ export default {
         let eventData = {
           eventId: `rotateTo-${('' + Math.random()).split('.')[1]}`,
         }
-        this.map.on(
-          'rotate',
-          this._catchRotateFabric(eventData, resolve, reject)
-        )
+        this.map.on('rotate', this._catchRotateFabric(eventData, resolve, reject))
         this.map.rotateTo(bearing, options, eventData)
       })
     },
@@ -174,10 +156,7 @@ export default {
         let eventData = {
           eventId: `resetNorth-${('' + Math.random()).split('.')[1]}`,
         }
-        this.map.on(
-          'rotate',
-          this._catchRotateFabric(eventData, resolve, reject)
-        )
+        this.map.on('rotate', this._catchRotateFabric(eventData, resolve, reject))
         this.map.resetNorth(options, eventData)
       })
     },
@@ -187,10 +166,7 @@ export default {
         let eventData = {
           eventId: `snapToNorth-${('' + Math.random()).split('.')[1]}`,
         }
-        this.map.on(
-          'rotate',
-          this._catchRotateFabric(eventData, resolve, reject)
-        )
+        this.map.on('rotate', this._catchRotateFabric(eventData, resolve, reject))
         this.map.snapToNorth(options, eventData)
       })
     },
@@ -233,48 +209,27 @@ export default {
         eventId: `jumpTo-${('' + Math.random()).split('.')[1]}`,
       }
       let funcs = []
-      if (
-        options.bearing !== undefined &&
-        options.bearing !== this.map.getBearing()
-      ) {
+      if (options.bearing !== undefined && options.bearing !== this.map.getBearing()) {
         let rotateFunc = new Promise((resolve, reject) => {
-          this.map.on(
-            'rotate',
-            this._catchRotateFabric(eventData, resolve, reject)
-          )
+          this.map.on('rotate', this._catchRotateFabric(eventData, resolve, reject))
         })
         funcs.push(rotateFunc)
       }
       if (options.zoom !== undefined && options.zoom !== this.map.getZoom()) {
         let zoomFunc = new Promise((resolve, reject) => {
-          this.map.on(
-            'zoomend',
-            this._catchZoomFabric(eventData, resolve, reject)
-          )
+          this.map.on('zoomend', this._catchZoomFabric(eventData, resolve, reject))
         })
         funcs.push(zoomFunc)
       }
-      if (
-        options.center !== undefined &&
-        options.center !== this.map.getCenter()
-      ) {
+      if (options.center !== undefined && options.center !== this.map.getCenter()) {
         let centerFunc = new Promise((resolve, reject) => {
-          this.map.on(
-            'moveend',
-            this._catchMoveFabric(eventData, resolve, reject)
-          )
+          this.map.on('moveend', this._catchMoveFabric(eventData, resolve, reject))
         })
         funcs.push(centerFunc)
       }
-      if (
-        options.pitch !== undefined &&
-        options.pitch !== this.map.getPitch()
-      ) {
+      if (options.pitch !== undefined && options.pitch !== this.map.getPitch()) {
         let pitchFunc = new Promise((resolve, reject) => {
-          this.map.on(
-            'pitch',
-            this._catchPitchFabric(eventData, resolve, reject)
-          )
+          this.map.on('pitch', this._catchPitchFabric(eventData, resolve, reject))
         })
         funcs.push(pitchFunc)
       }
@@ -307,48 +262,27 @@ export default {
       let eventData = {
         eventId: `easeTo-${('' + Math.random()).split('.')[1]}`,
       }
-      if (
-        options.bearing !== undefined &&
-        options.bearing !== this.map.getBearing()
-      ) {
+      if (options.bearing !== undefined && options.bearing !== this.map.getBearing()) {
         let rotateFunc = new Promise((resolve, reject) => {
-          this.map.on(
-            'rotate',
-            this._catchRotateFabric(eventData, resolve, reject)
-          )
+          this.map.on('rotate', this._catchRotateFabric(eventData, resolve, reject))
         })
         funcs.push(rotateFunc)
       }
       if (options.zoom !== undefined && options.zoom !== this.map.getZoom()) {
         let zoomFunc = new Promise((resolve, reject) => {
-          this.map.on(
-            'zoomend',
-            this._catchZoomFabric(eventData, resolve, reject)
-          )
+          this.map.on('zoomend', this._catchZoomFabric(eventData, resolve, reject))
         })
         funcs.push(zoomFunc)
       }
-      if (
-        options.center !== undefined &&
-        options.center !== this.map.getCenter()
-      ) {
+      if (options.center !== undefined && options.center !== this.map.getCenter()) {
         let centerFunc = new Promise((resolve, reject) => {
-          this.map.on(
-            'moveend',
-            this._catchMoveFabric(eventData, resolve, reject)
-          )
+          this.map.on('moveend', this._catchMoveFabric(eventData, resolve, reject))
         })
         funcs.push(centerFunc)
       }
-      if (
-        options.pitch !== undefined &&
-        options.pitch !== this.map.getPitch()
-      ) {
+      if (options.pitch !== undefined && options.pitch !== this.map.getPitch()) {
         let pitchFunc = new Promise((resolve, reject) => {
-          this.map.on(
-            'pitch',
-            this._catchPitchFabric(eventData, resolve, reject)
-          )
+          this.map.on('pitch', this._catchPitchFabric(eventData, resolve, reject))
         })
         funcs.push(pitchFunc)
       }
@@ -382,48 +316,27 @@ export default {
         eventId: `flyTo-${('' + Math.random()).split('.')[1]}`,
       }
       let funcs = []
-      if (
-        options.bearing !== undefined &&
-        options.bearing !== this.map.getBearing()
-      ) {
+      if (options.bearing !== undefined && options.bearing !== this.map.getBearing()) {
         let rotateFunc = new Promise((resolve, reject) => {
-          this.map.on(
-            'rotate',
-            this._catchRotateFabric(eventData, resolve, reject)
-          )
+          this.map.on('rotate', this._catchRotateFabric(eventData, resolve, reject))
         })
         funcs.push(rotateFunc)
       }
       if (options.zoom !== undefined && options.zoom !== this.map.getZoom()) {
         let zoomFunc = new Promise((resolve, reject) => {
-          this.map.on(
-            'zoomend',
-            this._catchZoomFabric(eventData, resolve, reject)
-          )
+          this.map.on('zoomend', this._catchZoomFabric(eventData, resolve, reject))
         })
         funcs.push(zoomFunc)
       }
-      if (
-        options.center !== undefined &&
-        options.center !== this.map.getCenter()
-      ) {
+      if (options.center !== undefined && options.center !== this.map.getCenter()) {
         let centerFunc = new Promise((resolve, reject) => {
-          this.map.on(
-            'moveend',
-            this._catchMoveFabric(eventData, resolve, reject)
-          )
+          this.map.on('moveend', this._catchMoveFabric(eventData, resolve, reject))
         })
         funcs.push(centerFunc)
       }
-      if (
-        options.pitch !== undefined &&
-        options.pitch !== this.map.getPitch()
-      ) {
+      if (options.pitch !== undefined && options.pitch !== this.map.getPitch()) {
         let pitchFunc = new Promise((resolve, reject) => {
-          this.map.on(
-            'pitch',
-            this._catchPitchFabric(eventData, resolve, reject)
-          )
+          this.map.on('pitch', this._catchPitchFabric(eventData, resolve, reject))
         })
         funcs.push(pitchFunc)
       }

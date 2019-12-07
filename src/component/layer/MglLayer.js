@@ -3,19 +3,19 @@
  */
 
 import isEqual from 'lodash/isEqual'
-import SubComponentMixin from '../common/SubComponentMixin.js'
+import MglComponentMixin from '../common/MglComponentMixin.js'
 
 /**
- * BaseLayer
+ * MglLayer
  *
  * usage Example
  *
- * <BaseLayer :sourceId='someid' :source='{type: geojson, data: {}}'> // use source data
- * <BaseLayer :sourceId='someid'> // use external source
+ * <MglLayer :sourceId='someid' :source='{type: geojson, data: {}}'> // use source data
+ * <MglLayer :sourceId='someid'> // use external source
  */
 
 export default {
-  mixins: [SubComponentMixin],
+  mixins: [MglComponentMixin],
 
   render() {
     return null
@@ -115,7 +115,7 @@ export default {
   },
 
   mounted() {
-    const {map, component} = this.__context()
+    const { map, component } = this.__context()
     this.map = map
     this.init()
   },

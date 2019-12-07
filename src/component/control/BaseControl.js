@@ -1,9 +1,9 @@
 import mgl from 'mapbox-gl'
-import {pick} from 'lodash'
-import SubComponentMixin from '../common/SubComponentMixin.js'
+import { pick } from 'lodash'
+import MglComponentMixin from '../common/MglComponentMixin.js'
 
 const BaseControl = {
-  mixins: [SubComponentMixin],
+  mixins: [MglComponentMixin],
 
   render() {
     return null
@@ -29,7 +29,7 @@ const BaseControl = {
   },
 
   mounted() {
-    const {map, component} = this.__context()
+    const { map, component } = this.__context()
     this.map = map
 
     const options = this.getOptions()

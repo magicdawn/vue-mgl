@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import SubComponentMixin from '../../common/SubComponentMixin.js'
+import MglComponentMixin from '../../common/MglComponentMixin.js'
 import BaseControl from '../BaseControl.js'
 
 export default {
-  mixins: [SubComponentMixin],
+  mixins: [MglComponentMixin],
   components: {BaseControl},
 
   props: {
@@ -43,7 +43,7 @@ export default {
       const $el = this.$el
       const $container = this.$refs.container
 
-      return class CustomControlType {
+      return class MglCustomControlType {
         onAdd(map) {
           return $container
         }

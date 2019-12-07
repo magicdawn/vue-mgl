@@ -17,7 +17,7 @@ export default {
       assert(component, 'this component requires a MglMap context')
       const map = component.map
       assert(map, 'this component requires a MglMap context')
-      return {map, component}
+      return { map, component }
     },
   },
 }

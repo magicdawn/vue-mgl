@@ -1,6 +1,6 @@
-import {omit} from 'lodash'
-import {enumPropValidator} from '../../util/index.js'
-import SubComponentMixin from '../common/SubComponentMixin.js'
+import { omit } from 'lodash'
+import { enumPropValidator } from '../../util/index.js'
+import MglComponentMixin from '../common/MglComponentMixin.js'
 
 export const geojsonOnlyProps = {
   // data
@@ -42,8 +42,8 @@ export const geojsonOnlyProps = {
   },
 }
 
-const BaseSource = {
-  mixins: [SubComponentMixin],
+const MglSource = {
+  mixins: [MglComponentMixin],
 
   render(h) {
     return h('div', this.$slots.default)
@@ -140,7 +140,7 @@ const BaseSource = {
   },
 
   beforeMount() {
-    const {map} = this.__context()
+    const { map } = this.__context()
     this.add()
   },
   destroyed() {
@@ -167,4 +167,4 @@ const BaseSource = {
   },
 }
 
-export default BaseSource
+export default MglSource

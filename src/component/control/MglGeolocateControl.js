@@ -8,11 +8,11 @@ export default {
   props: {
     positionOptions: {
       type: Object,
-      default: () => ({enableHighAccuracy: false, timeout: 6000}),
+      default: () => ({ enableHighAccuracy: false, timeout: 6000 }),
     },
     fitBoundsOptions: {
       type: Object,
-      default: () => ({maxZoom: 15}),
+      default: () => ({ maxZoom: 15 }),
     },
     trackUserLocation: {
       type: Boolean,

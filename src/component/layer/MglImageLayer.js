@@ -1,14 +1,14 @@
-import BaseLayer from './BaseLayer.js'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 import isEqual from 'lodash/isEqual'
-import SubComponentMixin from '../common/SubComponentMixin.js'
+import MglComponentMixin from '../common/MglComponentMixin.js'
+import MglLayer from './MglLayer.js'
 
 export default {
-  mixins: [SubComponentMixin],
+  mixins: [MglComponentMixin],
 
   render(h) {
-    return h(BaseLayer, {
+    return h(MglLayer, {
       props: this.layer,
       on: {
         ...this.$listeners,
@@ -27,15 +27,15 @@ export default {
   },
 
   props: {
-    ...omit(BaseLayer.props, ['type']),
+    ...omit(MglLayer.props, ['type']),
     id: {
-      ...BaseLayer.props.id,
+      ...MglLayer.props.id,
       default() {
         return `mgl-image-layer-${this._uid}`
       },
     },
     sourceId: {
-      ...BaseLayer.props.sourceId,
+      ...MglLayer.props.sourceId,
       default() {
         return `mgl-image-layer-source-${this._uid}`
       },
@@ -56,7 +56,7 @@ export default {
   computed: {
     layer() {
       return {
-        ...pick(this.$props, Object.keys(BaseLayer.props)),
+        ...pick(this.$props, Object.keys(MglLayer.props)),
         type: 'raster',
         source: {
           type: 'image',
@@ -76,7 +76,7 @@ export default {
 
     url(val) {
       if (!this.ready) return
-      return this.map.getSource(this.sourceId).updateImage({url: val})
+      return this.map.getSource(this.sourceId).updateImage({ url: val })
     },
   },
 
