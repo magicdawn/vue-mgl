@@ -2,4 +2,4 @@
 root: true
 
 extends:
-  - '@magicdawn'
+  - '@magicdawn/eslint-config/vue'
