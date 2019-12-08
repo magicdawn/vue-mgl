@@ -1,7 +1,7 @@
 import { pick, omit, isEqual } from 'lodash'
-import MglComponentMixin from '../common/MglComponentMixin.js'
 import MglLayer from '../MglLayer.js'
 import MglSource, { propsRegistry } from '../MglSource.js'
+import CompositionLayerMixin from './CompositionLayerMixin.js'
 
 // sourceProps
 // id, type, url, coordiantes
@@ -34,41 +34,7 @@ const props = {
 }
 
 export default {
-  mixins: [MglComponentMixin],
-
-  render(h) {
-    return (
-      <MglSource
-        {...{
-          props: this.sourceProps,
-          on: {
-            ready: () => {
-              this.sourceReady = true
-            },
-          },
-        }}
-      >
-        <MglLayer
-          {...{
-            props: this.layerProps,
-            on: {
-              ready: () => {
-                this.layerReady = true
-              },
-            },
-          }}
-        ></MglLayer>
-      </MglSource>
-    )
-  },
-
-  data() {
-    return {
-      sourceReady: false,
-      layerReady: false,
-    }
-  },
-
+  mixins: [CompositionLayerMixin],
   props,
 
   computed: {
@@ -92,7 +58,7 @@ export default {
 
   watch: {
     url(val) {
-      if (!this.sourceReady) return
+      if (!this.map || !this.sourceReady) return
       return this.map.getSource(this.sourceId).updateImage({ url: val })
     },
   },

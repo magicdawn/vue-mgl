@@ -1,7 +1,7 @@
 import { pick, omit, isEqual } from 'lodash'
-import MglComponentMixin from '../common/MglComponentMixin.js'
 import MglLayer from '../MglLayer.js'
 import MglSource, { propsRegistry } from '../MglSource.js'
+import CompositionLayerMixin from './CompositionLayerMixin.js'
 
 // sourceProps
 // id, type, urls, coordiantes
@@ -47,24 +47,8 @@ const createDeleteMethod = keys =>
   }, {})
 
 export default {
-  mixins: [MglComponentMixin],
-
-  render(h) {
-    return (
-      <MglSource {...{ props: this.sourceProps }}>
-        <MglLayer {...{ props: this.layerProps }}></MglLayer>
-      </MglSource>
-    )
-  },
-
-  data() {
-    return {
-      ready: false,
-    }
-  },
-
+  mixins: [CompositionLayerMixin],
   props,
-
   computed: {
     sourceProps() {
       return {
@@ -81,14 +65,6 @@ export default {
         type: 'raster',
         sourceId: this.sourceId, // 不传, 使用 inject 也可以
       }
-    },
-  },
-
-  watch: {
-    urls(val) {
-      if (!this.ready) return
-      // TODO: update video urls
-      // no avialable methods
     },
   },
 

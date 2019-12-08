@@ -6,7 +6,6 @@ export default {
   mixins: [MglComponentMixin],
 
   render(h) {
-    debugger
     return (
       <MglSource
         {...{
