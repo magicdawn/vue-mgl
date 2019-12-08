@@ -1,6 +1,6 @@
-import { omit, pick } from 'lodash'
-import { enumPropValidator } from '../../util/index.js'
-import MglComponentMixin from '../common/MglComponentMixin.js'
+import _, { omit, pick, mapValues } from 'lodash'
+import MglComponentMixin from './common/MglComponentMixin.js'
+import { enumPropValidator } from '../util/index.js'
 
 export const geojsonOnlyProps = {
   // data
@@ -115,11 +115,13 @@ const props = {
 }
 
 const commonPropKeys = ['id', 'type']
-const selectProps = arr => pick(props, [...commonPropKeys, ...arr])
-export const propsRegistry = {
-  'image': selectProps(['url', 'coordinates']),
-  'video': selectProps(['urls', 'coordinates']),
-  'vector': selectProps([
+const selectProps = arr => pick(props, arr)
+
+export const propKeysRegistry = {
+  'image': [...commonPropKeys, 'url', 'coordinates'],
+  'video': [...commonPropKeys, 'urls', 'coordinates'],
+  'vector': [
+    ...commonPropKeys,
     'url',
     'tiles',
     'bounds',
@@ -128,8 +130,9 @@ export const propsRegistry = {
     'tileSize',
     'scheme',
     'attribution',
-  ]),
-  'raster': selectProps([
+  ],
+  'raster': [
+    ...commonPropKeys,
     'url',
     'tiles',
     'bounds',
@@ -138,8 +141,9 @@ export const propsRegistry = {
     'tileSize',
     'scheme',
     'attribution',
-  ]),
-  'raster-dem': selectProps([
+  ],
+  'raster-dem': [
+    ...commonPropKeys,
     'url',
     'tiles',
     'bounds',
@@ -148,14 +152,26 @@ export const propsRegistry = {
     'tileSize',
     'attribution',
     'encoding',
-  ]),
-  'geojson': selectProps([
+  ],
+  'geojson': [
+    ...commonPropKeys,
     // only + extra
     ...Object.keys(geojsonOnlyProps),
     'maxzoom',
     'attribution',
-  ]),
+  ],
 }
+export const propsRegistry = mapValues(propKeysRegistry, keys => selectProps(keys))
+
+/**
+ * get prop keys by source.type
+ */
+export const getPropKeys = type => propKeysRegistry[type]
+
+/**
+ * get prop by source.type
+ */
+export const getProps = type => propsRegistry[type]
 
 export default {
   name: 'MglSource',
@@ -225,8 +241,11 @@ export default {
 
     add() {
       if (!this.map) return
-      const sourceKeys = Object.keys(omit(propsRegistry[this.type], ['id']))
+      const sourceKeys = _.without(getPropKeys(this.type), 'id')
       const source = pick(this.$props, sourceKeys)
+      for (let k of Object.keys(source)) {
+        if (typeof source[k] === 'undefined') delete source[k]
+      }
       this.map.addSource(this.id, source)
 
       this.ready = true

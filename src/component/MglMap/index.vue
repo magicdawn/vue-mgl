@@ -81,6 +81,13 @@ export default {
         this.$emit('ready')
         this.$emit('load', { map, component: this })
       })
+
+      map.on('error', err => {
+        this.$emit('error', err)
+        if (!this.$listeners.error) {
+          console.error(err.error.message || err.error.stack)
+        }
+      })
     },
 
     setupUpdateProps() {

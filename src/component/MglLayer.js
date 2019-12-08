@@ -3,14 +3,13 @@
  */
 
 import isEqual from 'lodash/isEqual'
-import MglComponentMixin from '../common/MglComponentMixin.js'
+import MglComponentMixin from './common/MglComponentMixin.js'
+import { enumPropValidator } from '../util/index.js'
 
 /**
  * MglLayer
  *
  * usage Example
- *
- * <MglLayer :sourceId='someid' :source='{type: geojson, data: {}}'> // use source data
  * <MglLayer :sourceId='someid'> // use external source
  */
 
@@ -32,6 +31,17 @@ export default {
     },
     type: {
       type: String,
+      validator: enumPropValidator([
+        'fill',
+        'line',
+        'symbol',
+        'circle',
+        'heatmap',
+        'fill-extrusion',
+        'raster',
+        'hillshade',
+        'background',
+      ]),
     },
     metadata: {
       type: Object,

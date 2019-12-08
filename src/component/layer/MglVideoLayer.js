@@ -1,7 +1,7 @@
 import { pick, omit, isEqual } from 'lodash'
 import MglComponentMixin from '../common/MglComponentMixin.js'
-import MglLayer from './MglLayer.js'
-import MglSource, { propsRegistry } from '../source/MglSource.js'
+import MglLayer from '../MglLayer.js'
+import MglSource, { propsRegistry } from '../MglSource.js'
 
 // sourceProps
 // id, type, urls, coordiantes

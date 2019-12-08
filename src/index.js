@@ -46,21 +46,26 @@ export { MglMarker, MglPopup }
 globalify({ MglMarker, MglPopup })
 
 // source
-import MglSource from './component/source/MglSource.js'
-import MglLayer from './component/layer/MglLayer.js'
+import MglSource from './component/MglSource.js'
+import MglLayer from './component//MglLayer.js'
 export { MglSource, MglLayer }
 globalify({ MglSource, MglLayer })
 
 // simple layer
 import MglVideoLayer from './component/layer/MglVideoLayer.js'
 import MglImageLayer from './component/layer/MglImageLayer.js'
-export { MglVideoLayer, MglImageLayer }
-globalify({ MglVideoLayer, MglImageLayer })
+import MglRasterLayer from './component/layer/MglRasterLayer.js'
+export { MglVideoLayer, MglImageLayer, MglRasterLayer }
+globalify({ MglVideoLayer, MglImageLayer, MglRasterLayer })
 
 // complex layer
 
+// source + layer combination
+//
+// raster-source + raster-layer
+// vector-source/geojson-source + mgl-layer(type=fill/line/symbol/...)
+
 // import GeojsonLayer from './components/layer/GeojsonLayer.js'
-// import ImageLayer from './components/layer/ImageLayer.vue'
 // import CanvasLayer from './components/layer/CanvasLayer.vue'
 // import RasterLayer from './components/layer/RasterLayer.vue'
 // import TileLayer from './components/layer/TileLayer.js'
