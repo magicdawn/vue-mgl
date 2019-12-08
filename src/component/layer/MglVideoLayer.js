@@ -33,6 +33,19 @@ const props = {
   },
 }
 
+const createDeleteMethod = keys =>
+  keys.reduce((obj, key) => {
+    obj[key] = function(...args) {
+      if (!this.map || !this.sourceReady) return
+
+      const source = this.map.getSource(this.sourceId)
+      if (!source) return
+
+      return source[key](...args)
+    }
+    return obj
+  }, {})
+
 export default {
   mixins: [MglComponentMixin],
 
@@ -73,9 +86,9 @@ export default {
 
   watch: {
     urls(val) {
-      // TODO
-      // if (!this.ready) return
-      // return this.map.getSource(this.sourceId).updateImage({ url: val })
+      if (!this.ready) return
+      // TODO: update video urls
+      // no avialable methods
     },
   },
 
@@ -84,9 +97,8 @@ export default {
   },
 
   methods: {
-    getVideo() {
-      if (!this.sourceReady) return
-      return this.map.getSource(this.sourceId).getVideo()
-    },
+    // VideoSource
+    // play() / pause() / seek() / getVideo
+    ...createDeleteMethod(['play', 'pause', 'seek', 'getVideo']),
   },
 }
