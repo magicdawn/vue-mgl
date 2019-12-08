@@ -1,6 +1,6 @@
 // https://www.mapbox.com/mapbox-gl-js/api/#map
 
-import isEqual from 'lodash/isEqual'
+import isEqual from 'lodash-es/isEqual'
 
 export default {
   props: {

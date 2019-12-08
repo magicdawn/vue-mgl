@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <MglCustomControl
     :position="position"
     :container-props="{ class: 'mapboxgl-ctrl mapboxgl-ctrl-group' }"

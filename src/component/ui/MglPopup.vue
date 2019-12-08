@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="mgl-popup-container" v-show="show"><slot></slot></div>
 </template>
 

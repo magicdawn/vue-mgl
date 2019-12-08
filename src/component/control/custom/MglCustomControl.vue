@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="custom-control-wrapper" style="display: none;">
     <BaseControl v-if="ready" v-bind="baseControlProps" />
     <div ref="container" v-bind="containerProps"><slot></slot></div>

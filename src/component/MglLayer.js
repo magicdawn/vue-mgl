@@ -2,7 +2,7 @@
  * https://www.mapbox.com/mapbox-gl-js/style-spec#layers
  */
 
-import isEqual from 'lodash/isEqual'
+import isEqual from 'lodash-es/isEqual'
 import MglComponentMixin from './common/MglComponentMixin.js'
 import { enumPropValidator } from '../util/index.js'
 

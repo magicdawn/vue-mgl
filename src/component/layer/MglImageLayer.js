@@ -1,4 +1,4 @@
-import { pick, omit, isEqual } from 'lodash'
+import { pick, omit, isEqual } from 'lodash-es'
 import MglLayer from '../MglLayer.js'
 import MglSource, { propsRegistry } from '../MglSource.js'
 import CompositionLayerMixin from './CompositionLayerMixin.js'

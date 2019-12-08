@@ -1,4 +1,4 @@
-import _, { omit, pick, mapValues } from 'lodash'
+import { omit, pick, mapValues, without } from 'lodash-es'
 import MglComponentMixin from './common/MglComponentMixin.js'
 import { enumPropValidator } from '../util/index.js'
 
@@ -241,7 +241,7 @@ export default {
 
     add() {
       if (!this.map) return
-      const sourceKeys = _.without(getPropKeys(this.type), 'id')
+      const sourceKeys = without(getPropKeys(this.type), 'id')
       const source = pick(this.$props, sourceKeys)
       for (let k of Object.keys(source)) {
         if (typeof source[k] === 'undefined') delete source[k]

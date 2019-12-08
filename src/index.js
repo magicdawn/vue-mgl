@@ -59,26 +59,10 @@ export { MglVideoLayer, MglImageLayer, MglRasterLayer }
 globalify({ MglVideoLayer, MglImageLayer, MglRasterLayer })
 
 // complex layer
-
 // source + layer combination
 //
 // raster-source + raster-layer
-// vector-source/geojson-source + mgl-layer(type=fill/line/symbol/...)
-
-// import GeojsonLayer from './components/layer/GeojsonLayer.js'
-// import CanvasLayer from './components/layer/CanvasLayer.vue'
-// import RasterLayer from './components/layer/RasterLayer.vue'
-// import TileLayer from './components/layer/TileLayer.js'
-// import VideoLayer from './components/layer/VideoLayer.vue'
-// import Vectorlayer from './components/layer/VectorLayer'
-//
-// import PlayRasterLayer from './components/inherit/PlayRasterLayer.vue'
-// import DraggableMarker from './components/inherit/DraggableMarker.vue'
-// import LineLayer from './components/inherit/LineLayer.vue'
-// import VectorTrafficLayer from './components/inherit/VectorTrafficLayer.js'
-// import Polygon from './components/inherit/Polygon.vue'
-// import BuildingLayer from './components/inherit/BuildingLayer'
-//
+// vector-source/geojson-source + mgl-layer(type=fill/line/symbol/...
 
 /**
  * 全局组件
