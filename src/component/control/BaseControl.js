@@ -1,5 +1,5 @@
 import mgl from 'mapbox-gl'
-import { pick } from 'lodash-es'
+import { pick } from 'lodash'
 import MglComponentMixin from '../common/MglComponentMixin.js'
 
 const BaseControl = {

@@ -1,6 +1,6 @@
 const pkg = require('./package.json')
 const vue = require('rollup-plugin-vue')
-const nodeResolve = require('rollup-plugin-node-resolve')
+const resolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
 const babel = require('rollup-plugin-babel')
 const buble = require('rollup-plugin-buble')
@@ -11,6 +11,23 @@ const buble = require('rollup-plugin-buble')
 //   noRuntime: true,
 //   wrapAwait: true,
 // }),
+
+const pluginsFromDemo = [
+  vue({
+    compileTemplate: true,
+  }),
+  buble({
+    objectAssign: 'Object.assign',
+    jsx: 'h',
+    transforms: { dangerousForOf: true },
+  }),
+  resolve({
+    jsnext: true,
+    main: true,
+    browser: true,
+  }),
+  commonjs(),
+]
 
 module.exports = {
   input: 'src/index.js',
@@ -26,31 +43,25 @@ module.exports = {
     },
   ],
 
-  external: ['mapbox-gl', 'vue'],
-  plugins: [
-    // vue({
-    //   compileTemplate: true,
-    // }),
-    // babel({
-    //   exclude: 'node_modules/**',
-    //   extensions: ['.js,', '.jsx,', '.es6,', '.es,', '.mjs'],
-    // }),
-    // nodeResolve(),
-    // commonjs(),
+  external: id => {
+    if (['mapbox-gl', 'vue'].includes(id)) return true
+    return /lodash/.test(id)
+  },
 
+  plugins: [
+    babel({
+      // configfile: __dirname + '/babel.config.js',
+      // ...require('./babel.config.js'),
+      // include: 'src/**/*.js',
+      exclude: 'node_modules/**',
+    }),
     vue({
-      compileTemplate: true,
+      exclude: 'node_modules/**',
+      include: ['src/**/*.vue'],
     }),
-    buble({
-      objectAssign: 'Object.assign',
-      jsx: 'h',
-      transforms: { dangerousForOf: true },
+    commonjs({
+      exclude: 'src/**',
     }),
-    nodeResolve({
-      jsnext: true,
-      main: true,
-      browser: true,
-    }),
-    commonjs(),
+    resolve(),
   ],
 }

@@ -27,5 +27,6 @@ module.exports = {
         useBuiltIns: true,
       },
     ],
+    require('babel-plugin-lodash'),
   ],
 }

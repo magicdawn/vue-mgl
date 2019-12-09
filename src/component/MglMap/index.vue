@@ -7,7 +7,7 @@
 <script>
 import mgl from 'mapbox-gl'
 import Vue from 'vue'
-import { isEqual, pick } from 'lodash-es'
+import { isEqual, pick } from 'lodash'
 import preventObserve from '../../util/preventObserve.js'
 
 // part
