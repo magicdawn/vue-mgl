@@ -14,9 +14,17 @@
 $ npm i vue-mgl --save
 ```
 
+### builds
+
+| file                       | field            | desc                                  | externals                    |
+| -------------------------- | ---------------- | ------------------------------------- | ---------------------------- |
+| `dist/vue-mgl.esm.js`      | `package.module` | es module build                       | external all dependencies    |
+| `dist/vue-mgl.common.js`   | `package.main`   | commonjs build                        | external all dependencies    |
+| `dist/vue-mgl-full.umd.js` | `package.umd`    | browser build, for `<script src>` use | external `mapbox-gl` & `vue` |
+
 ## API
 
-### plugin add global components
+### use global `mgl-*` component
 
 ```js
 import VueMgl from 'vue-mgl'
