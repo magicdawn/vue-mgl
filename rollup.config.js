@@ -4,6 +4,7 @@ const resolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
 const babel = require('rollup-plugin-babel')
 const buble = require('rollup-plugin-buble')
+const { terser } = require('rollup-plugin-terser')
 
 // require('rollup-plugin-nodent')({
 //   sourcemap: true,
@@ -23,14 +24,26 @@ module.exports = [
         exports: 'named',
       },
       {
+        file: pkg.module.replace(/\.js$/, '.min.js'),
+        format: 'esm',
+        exports: 'named',
+        plugins: [terser()],
+      },
+      {
         file: pkg.main,
         format: 'cjs',
         exports: 'named',
       },
+      {
+        file: pkg.main.replace(/\.js$/, '.min.js'),
+        format: 'cjs',
+        exports: 'named',
+        plugins: [terser()],
+      },
     ],
     external: id => {
       if (['mapbox-gl', 'vue', 'assert'].includes(id)) return true
-      return /^lodash-/.test(id)
+      return /^lodash\//.test(id)
     },
     plugins: [
       babel({

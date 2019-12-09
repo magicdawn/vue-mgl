@@ -39,6 +39,7 @@ export default {
     },
 
     ControlType() {
+      /* eslint no-unused-vars: off */
       const vm = this
       const $el = this.$el
       const $container = this.$refs.container

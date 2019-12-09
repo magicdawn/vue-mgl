@@ -1,4 +1,4 @@
-import { omit, pick, mapValues, without } from 'lodash'
+import { pick, mapValues, without } from 'lodash'
 import MglComponentMixin from './common/MglComponentMixin.js'
 import { enumPropValidator } from '../util/index.js'
 
