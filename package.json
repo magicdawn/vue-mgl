@@ -7,7 +7,11 @@
   "umd": "dist/vue-mgl-full.umd.js",
   "files": [
     "src",
-    "dist"
+    "dist",
+    "package.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
   ],
   "scripts": {
     "dev": "poi demo/index.js --serve --open --port 4100",
