@@ -15,7 +15,8 @@
   ],
   "scripts": {
     "dev": "poi demo/index.js --serve --open --port 4100",
-    "dist": "rollup -c",
+    "dist": "rm -rf ./dist; rollup -c",
+    "prepublish": "yarn dist",
     "test": "mocha",
     "test-cover": "nyc --reporter=lcov --reporter=text mocha",
     "report-cover": "codecov"
