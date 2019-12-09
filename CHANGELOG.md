@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.1.1 2019-12-09
+
+- change @babel/preset-env targets to `last 20 chrome versions`
+
 ## v0.1.0 2019-12-09
 
 - first usable release
