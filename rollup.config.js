@@ -63,4 +63,48 @@ module.exports = [
   },
 
   // umd
+  {
+    input: 'src/index.js',
+    output: [
+      {
+        name: 'VueMgl',
+        file: pkg.umd,
+        format: 'umd',
+        exports: 'named',
+        globals: {
+          'vue': 'Vue',
+          'mapbox-gl': 'mapboxgl',
+        },
+      },
+      {
+        name: 'VueMgl',
+        file: pkg.umd.replace(/\.js$/, '.min.js'),
+        format: 'umd',
+        exports: 'named',
+        globals: {
+          'vue': 'Vue',
+          'mapbox-gl': 'mapboxgl',
+        },
+        plugins: [terser()],
+      },
+    ],
+    external: id => {
+      if (['mapbox-gl', 'vue'].includes(id)) return true
+    },
+    plugins: [
+      babel({
+        exclude: 'node_modules/**',
+      }),
+      vue({
+        exclude: 'node_modules/**',
+        include: ['src/**/*.vue'],
+      }),
+      commonjs({
+        exclude: 'src/**',
+      }),
+      resolve({
+        preferBuiltins: false,
+      }),
+    ],
+  },
 ]

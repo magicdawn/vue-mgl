@@ -1,8 +1,8 @@
 # root
 root: true
 
-rules:
-  # no-unused-vars: warn
+# rules:
+# no-unused-vars: warn
 
 extends:
   - '@magicdawn/eslint-config/vue'

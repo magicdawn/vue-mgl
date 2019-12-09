@@ -2,11 +2,16 @@
   "name": "vue-mgl",
   "version": "0.0.1",
   "description": "mapbox-gl vue components (map, layers, sources, controls)",
-  "main": "dist/vue-mgl.umd.js",
-  "browser": "dist/vue-mgl.umd.js",
+  "main": "dist/vue-mgl.common.js",
   "module": "dist/vue-mgl.esm.js",
+  "umd": "dist/vue-mgl-full.umd.js",
+  "files": [
+    "src",
+    "dist"
+  ],
   "scripts": {
     "dev": "poi demo/index.js --serve --open --port 4100",
+    "dist": "rollup -c",
     "test": "mocha",
     "test-cover": "nyc --reporter=lcov --reporter=text mocha",
     "report-cover": "codecov"
