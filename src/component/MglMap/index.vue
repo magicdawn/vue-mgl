@@ -107,5 +107,3 @@ export default {
   },
 }
 </script>
-
-<style lang="less"></style>
