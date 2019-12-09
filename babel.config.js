@@ -6,7 +6,11 @@ module.exports = {
       '@babel/preset-env',
       {
         modules: false,
-        targets: 'last 5 chrome versions',
+        // https://www.chromium.org/developers/calendar
+        // 1month + 发一个版本
+        // 虽然打出来有 const/template string/
+        // 支持两年前的应该可以了吧...
+        targets: 'last 20 chrome versions',
       },
     ],
   ],
