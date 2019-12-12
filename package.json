@@ -1,6 +1,6 @@
 {
   "name": "vue-mgl",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "mapbox-gl vue components (map, layers, sources, controls)",
   "main": "dist/vue-mgl.common.js",
   "module": "dist/vue-mgl.esm.js",
