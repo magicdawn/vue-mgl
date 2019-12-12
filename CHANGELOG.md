@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.2.1 2019-12-13
+
+- fix(MglLayer): fix unintend typo
+
 ## v0.2.0 2019-12-13
 
 - export `util` too
