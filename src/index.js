@@ -80,3 +80,7 @@ export default VueMapboxGlPlugin
 // mgl I'm using
 import mgl from 'mapbox-gl'
 export { mgl }
+
+// util
+import * as util from './util/index.js'
+export { util }

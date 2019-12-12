@@ -3,3 +3,6 @@ export function enumPropValidator(allow = []) {
     return allow.includes(val)
   }
 }
+
+import preventObserve from './preventObserve'
+export { preventObserve }
