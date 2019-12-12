@@ -19,6 +19,7 @@ export default {
     // [Vue warn]: "style" is a reserved attribute and cannot be used as component prop.
     mapStyle: {
       type: [String, Object],
+      required: true,
       default: () => null,
     },
 

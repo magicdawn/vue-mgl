@@ -1,4 +1,4 @@
-import { pick, mapValues, without } from 'lodash'
+import { pick, mapValues, without, get } from 'lodash'
 import MglComponentMixin from './common/MglComponentMixin.js'
 import { enumPropValidator } from '../util/index.js'
 
@@ -46,7 +46,8 @@ const props = {
   id: {
     type: String,
     default() {
-      return `mgl-source-${this.type}-${this._uid}`
+      const type = this.type || get(this, '$options.propsData.type') || 'unknown'
+      return `mgl-source-${type}-${this._uid}`
     },
   },
 

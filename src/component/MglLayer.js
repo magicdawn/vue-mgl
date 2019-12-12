@@ -2,7 +2,7 @@
  * https://www.mapbox.com/mapbox-gl-js/style-spec#layers
  */
 
-import { isEqual } from 'lodash'
+import { isEqual, get } from 'lodash'
 import MglComponentMixin from './common/MglComponentMixin.js'
 import { enumPropValidator } from '../util/index.js'
 
@@ -26,6 +26,7 @@ export default {
     id: {
       type: String,
       default() {
+        const type = this.type || get(this, '$options.propsData.type') || 'unknown'
         return `mgl-layer-${this._uid}`
       },
     },
@@ -135,16 +136,21 @@ export default {
   beforeMount() {
     const { map, component } = this.__context()
     this.map = map
-    this.init()
+    this.__init()
   },
   destroyed() {
+    if (!this.ready) return
+
     if (this.map.getLayer(this.id)) {
       this.map.removeLayer(this.id)
     }
+
+    this._removeEvent()
   },
 
   methods: {
-    init() {
+    // _init conflicts with Vue
+    __init() {
       this._addLayer()
       this.ready = true
       this.$emit('ready')
@@ -158,6 +164,34 @@ export default {
 
       // add
       this.map.addLayer(this.layerEntity, this.before)
+
+      // event
+      this._addEvent()
+    },
+
+    _addEvent() {
+      this.handlers = this.handlers || {}
+      const eventNames = Object.keys(this.$listeners)
+      for (let name of eventNames) {
+        const fn = (...args) => {
+          this.$emit(name, ...args)
+        }
+        this.handlers[name] = fn
+        this.map.on(name, this.id, fn)
+      }
+    },
+
+    _removeEvent() {
+      if (!this.map) return
+
+      const eventNames = Object.keys(this.$listeners)
+      for (let name of eventNames) {
+        const fn = this.handlers && this.handlers[name]
+        if (!fn) continue
+
+        this.map.off(name, this.id, fn)
+        delete this.handlers[name]
+      }
     },
   },
 }
