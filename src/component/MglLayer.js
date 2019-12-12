@@ -109,7 +109,7 @@ export default {
       if (this.sourceId) return this.sourceId
 
       // inject
-      if (this.getSourceId && this.getSourceId) return this.getSourceId()
+      if (this.getSourceId && this.getSourceId()) return this.getSourceId()
 
       throw new Error('sourceId empty for the layer')
     },
