@@ -1,4 +1,4 @@
-import assert from 'assert'
+import { simpleAssert as assert } from '../../util/index.js'
 
 export default {
   inject: ['getMapComponent'],
