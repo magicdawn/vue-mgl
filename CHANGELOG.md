@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v0.3.0 2019-12-15
+
+- add `MglControlGroup`
+- add `MglPolygon`
+- add readd logic to `MglSource` when map change theme(reset style),
+  only `MglSource` have this, and `MglLayer` should be wrapped in a `MglSource`
+
 ## v0.2.2 2019-12-13
 
 - remove `assert` module & use `simpleAssert` to reduce bundle size
