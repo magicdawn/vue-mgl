@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.2.2 2019-12-13
+
+- remove `assert` module & use `simpleAssert` to reduce bundle size
+
 ## v0.2.1 2019-12-13
 
 - fix(MglLayer): fix unintend typo

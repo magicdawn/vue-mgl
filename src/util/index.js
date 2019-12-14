@@ -6,3 +6,6 @@ export function enumPropValidator(allow = []) {
 
 import preventObserve from './preventObserve'
 export { preventObserve }
+
+import simpleAssert from './simpleAssert'
+export { simpleAssert }
