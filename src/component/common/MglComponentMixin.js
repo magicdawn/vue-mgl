@@ -1,7 +1,11 @@
 import { simpleAssert as assert } from '../../util/index.js'
 
 export default {
-  inject: ['getMapComponent'],
+  inject: {
+    getMapComponent: {
+      default: () => null,
+    },
+  },
 
   props: {
     // the MglMap component instance
@@ -13,12 +17,8 @@ export default {
   methods: {
     // the current context
     __context() {
-      const msg = 'this component requires a MglMap context'
-
-      // inject works
-      assert(this.getMapComponent, msg)
-
       // check map & component
+      const msg = 'this component requires a MglMap context'
       const component = this.mapComponent || this.getMapComponent()
       const map = component && component.map
       assert(component, 'this component requires a MglMap context')

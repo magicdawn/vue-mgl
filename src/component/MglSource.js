@@ -188,7 +188,7 @@ export default {
   },
   provide() {
     return {
-      getSourceId: this.getSourceId,
+      CONTEXT_SOURCE_ID: this.id,
     }
   },
 
@@ -230,11 +230,6 @@ export default {
   },
 
   methods: {
-    // context
-    getSourceId() {
-      return this.id
-    },
-
     getSource() {
       if (!this.map) return
       return this.map.getSource(this.id)

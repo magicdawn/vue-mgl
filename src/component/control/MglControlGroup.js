@@ -1,9 +1,21 @@
 import { enumPropValidator } from '../../util/index.js'
 
 export default {
+  render(h) {
+    return h(
+      'div',
+      {
+        style: {
+          visibility: 'hidden',
+        },
+      },
+      this.$slots.default
+    )
+  },
+
   props: {
-    location: {
-      type: 'string',
+    position: {
+      type: String,
       default: 'bottom-right',
       validator: enumPropValidator(['top-left', 'top-right', 'bottom-left', 'bottom-right']),
     },
@@ -11,9 +23,7 @@ export default {
 
   provide() {
     return {
-      getLocation() {
-        return this.location
-      },
+      CONTEXT_POSITION: this.position,
     }
   },
 }

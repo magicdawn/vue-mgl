@@ -20,7 +20,11 @@ export default {
     return null
   },
 
-  inject: ['getSourceId'],
+  inject: {
+    CONTEXT_SOURCE_ID: {
+      default: null,
+    },
+  },
 
   props: {
     id: {
@@ -109,7 +113,7 @@ export default {
       if (this.sourceId) return this.sourceId
 
       // inject
-      if (this.getSourceId && this.getSourceId()) return this.getSourceId()
+      if (this.CONTEXT_SOURCE_ID) return this.CONTEXT_SOURCE_ID
 
       throw new Error('sourceId empty for the layer')
     },

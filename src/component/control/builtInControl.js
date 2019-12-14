@@ -8,6 +8,8 @@ export const commonPropsValue = $props => pick($props, commonKeys)
 
 export default function createBuiltInControlMixin(ControlType) {
   return {
+    inject: BaseControl.inject,
+
     props: {
       ...commonProps,
     },

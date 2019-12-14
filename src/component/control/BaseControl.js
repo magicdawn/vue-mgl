@@ -9,7 +9,13 @@ const BaseControl = {
     return null
   },
 
-  inject: ['getPosition'],
+  // inject if default not provided & inject not found
+  // Vue will have warn
+  inject: {
+    CONTEXT_POSITION: {
+      default: null,
+    },
+  },
 
   props: {
     ControlType: {
@@ -24,7 +30,7 @@ const BaseControl = {
       common: true,
       type: String,
       default() {
-        return (this.getPosition && this.getPosition()) || 'top-right'
+        return this.CONTEXT_POSITION || 'top-right'
       },
       validator: value => {
         return ['top-left', 'top-right', 'bottom-left', 'bottom-right'].includes(value)
