@@ -9,6 +9,8 @@ const BaseControl = {
     return null
   },
 
+  inject: ['getPosition'],
+
   props: {
     ControlType: {
       type: Function,
@@ -21,7 +23,9 @@ const BaseControl = {
     position: {
       common: true,
       type: String,
-      default: 'top-right',
+      default() {
+        return (this.getPosition && this.getPosition()) || 'top-right'
+      },
       validator: value => {
         return ['top-left', 'top-right', 'bottom-left', 'bottom-right'].includes(value)
       },

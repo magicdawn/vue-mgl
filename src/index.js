@@ -12,12 +12,14 @@ export { MglComponentMixin }
 globalify({ MglComponentMixin })
 
 // control
+import MglControlGroup from './component/control/MglControlGroup.js'
 import MglNavigationControl from './component/control/MglNavigationControl.js'
 import MglGeolocateControl from './component/control/MglGeolocateControl.js'
 import MglAttributionControl from './component/control/MglAttributionControl.js'
 import MglScaleControl from './component/control/MglScaleControl.js'
 import MglFullscreenControl from './component/control/MglFullscreenControl.js'
 export {
+  MglControlGroup,
   MglNavigationControl,
   MglGeolocateControl,
   MglAttributionControl,
@@ -25,6 +27,7 @@ export {
   MglFullscreenControl,
 }
 globalify({
+  MglControlGroup,
   MglNavigationControl,
   MglGeolocateControl,
   MglAttributionControl,
@@ -33,11 +36,11 @@ globalify({
 })
 
 // custom control
-import MglMglCustomControl from './component/control/custom/MglCustomControl.vue'
+import MglCustomControl from './component/control/custom/MglCustomControl.vue'
 import MglPitchControl from './component/control/custom/MglPitchControl.vue'
 import MglFlyToControl from './component/control/custom/MglFlyToControl.vue'
-export { MglMglCustomControl, MglPitchControl, MglFlyToControl }
-globalify({ MglMglCustomControl, MglPitchControl, MglFlyToControl })
+export { MglCustomControl, MglPitchControl, MglFlyToControl }
+globalify({ MglCustomControl, MglPitchControl, MglFlyToControl })
 
 // ui control
 import MglMarker from './component/ui/MglMarker.vue'
