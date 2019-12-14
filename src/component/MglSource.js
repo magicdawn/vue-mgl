@@ -184,6 +184,9 @@ export default {
   //   <MglLayer />
   // </MglSource>
   render(h) {
+    // do not render child when source not added
+    if (!this.ready) return null
+
     // single or no child
     if (this.$slots.default && this.$slots.default.length <= 1) {
       return this.$slots.default
@@ -234,13 +237,23 @@ export default {
     },
   },
 
+  // parent-beforeMount -> child-beforeMount
+  // child-destroyed -> parent-destroyed
   beforeMount() {
-    const { map } = this.__context()
+    const { map, component } = this.__context()
     this.map = map
+    this.component = component
+
+    // first add
     this.add()
+
+    // add when map reset style load success
+    this.component.$on('style-load', this.add)
   },
+
   destroyed() {
     this.remove()
+    this.component && this.component.$off && this.component.$off('style-load', this.add)
   },
 
   methods: {
@@ -256,10 +269,15 @@ export default {
       for (let k of Object.keys(source)) {
         if (typeof source[k] === 'undefined') delete source[k]
       }
+
+      this.ready = false
       this.map.addSource(this.id, source)
 
-      this.ready = true
-      this.$emit('ready')
+      // let vue destroy child and recreate
+      this.$nextTick(() => {
+        this.ready = true
+        this.$emit('ready')
+      })
     },
     remove() {
       if (!this.map || !this.map.getSource(this.id)) return
