@@ -184,8 +184,22 @@ export default {
   //   <MglLayer />
   // </MglSource>
   render(h) {
-    return this.$slots.default
+    // single or no child
+    if (this.$slots.default && this.$slots.default.length <= 1) {
+      return this.$slots.default
+    }
+
+    // multi child
+    return h(
+      'div',
+      {
+        class: 'mgl-source',
+        style: { visibility: 'hidden' },
+      },
+      this.$slots.default
+    )
   },
+
   provide() {
     return {
       CONTEXT_SOURCE_ID: this.id,

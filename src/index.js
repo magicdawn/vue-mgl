@@ -58,8 +58,9 @@ globalify({ MglSource, MglLayer })
 import MglVideoLayer from './component/layer/MglVideoLayer.js'
 import MglImageLayer from './component/layer/MglImageLayer.js'
 import MglRasterLayer from './component/layer/MglRasterLayer.js'
-export { MglVideoLayer, MglImageLayer, MglRasterLayer }
-globalify({ MglVideoLayer, MglImageLayer, MglRasterLayer })
+import MglPolygon from './component/layer/MglPolygon.vue'
+export { MglVideoLayer, MglImageLayer, MglRasterLayer, MglPolygon }
+globalify({ MglVideoLayer, MglImageLayer, MglRasterLayer, MglPolygon })
 
 // complex layer
 // source + layer combination
