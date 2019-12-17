@@ -16,6 +16,15 @@ export default {
       default: 22,
     },
 
+    minPitch: {
+      type: Number,
+      default: 0,
+    },
+    maxPitch: {
+      type: Number,
+      default: 60,
+    },
+
     // [Vue warn]: "style" is a reserved attribute and cannot be used as component prop.
     mapStyle: {
       type: [String, Object],
@@ -68,6 +77,11 @@ export default {
     },
 
     preserveDrawingBuffer: {
+      type: Boolean,
+      default: false,
+    },
+
+    antialias: {
       type: Boolean,
       default: false,
     },
@@ -138,8 +152,12 @@ export default {
       type: Number,
       default: 0,
     },
+
     bounds: {
       type: [Array, Object],
+    },
+    fitBoundsOptions: {
+      type: Object,
     },
 
     /**
@@ -173,6 +191,14 @@ export default {
     crossSourceCollisions: {
       type: Boolean,
       default: true,
+    },
+
+    accessToken: {
+      type: String,
+    },
+
+    locale: {
+      type: String,
     },
   },
 
