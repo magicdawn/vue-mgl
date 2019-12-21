@@ -33,13 +33,17 @@ export default {
     mapStyle(val) {
       // set to map
       if (!this.ready) return
-      this.map.setStyle(val)
 
       // https://github.com/mapbox/mapbox-gl-js/blob/v0.42.2/src/ui/map.js#L919
       // https://github.com/mapbox/mapbox-gl-js/blob/v0.42.2/src/style/style.js#L230
-      this.map.style.once('style.load', () => {
+      //
+      // new version
+      // style.load will buble to map
+      this.map.once('style.load', () => {
         this.$emit('style-load')
       })
+
+      this.map.setStyle(val)
     },
   },
 
