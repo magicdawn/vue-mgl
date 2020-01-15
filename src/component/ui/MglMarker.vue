@@ -102,13 +102,6 @@ export default {
     }
   },
 
-  computed: {
-    // 兼容处理
-    initial() {
-      return !this.ready
-    },
-  },
-
   watch: {
     ...watchThenSet([
       // marker position
