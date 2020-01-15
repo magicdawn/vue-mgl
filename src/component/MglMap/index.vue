@@ -111,3 +111,11 @@ export default {
   },
 }
 </script>
+
+<style>
+/* .map-container(with width & height) > MglMap */
+.mgl-map-wrapper {
+  width: 100%;
+  height: 100%;
+}
+</style>
