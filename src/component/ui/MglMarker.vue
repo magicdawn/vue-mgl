@@ -9,10 +9,38 @@
 <script>
 import mgl from 'mapbox-gl'
 import MglComponentMixin from '../common/MglComponentMixin.js'
+import { upperFirst } from 'lodash'
 
 /**
  * https://www.mapbox.com/mapbox-gl-js/api#marker
  */
+
+const watchThenSet = list => {
+  return list.reduce((ret, item) => {
+    let prop
+    let setter
+
+    if (typeof item === 'object') {
+      prop = item.prop
+      setter = item.setter
+    } else {
+      prop = setter = item
+    }
+
+    // e.g offset => setOffset
+    setter = `set${upperFirst(setter)}`
+
+    // watch `prop`
+    ret[prop] = function(val) {
+      if (!this.ready) return
+      if (this.marker && this.marker[setter]) {
+        return this.marker[setter](val)
+      }
+    }
+
+    return ret
+  }, {})
+}
 
 export default {
   mixins: [MglComponentMixin],
@@ -45,6 +73,21 @@ export default {
       default: false,
     },
 
+    rotation: {
+      type: Number,
+      default: 0,
+    },
+
+    pitchAlignment: {
+      type: String,
+      default: 'auto',
+    },
+
+    rotationAlignment: {
+      type: String,
+      default: 'auto',
+    },
+
     // Popup
     popupOptions: {
       type: Object,
@@ -67,28 +110,21 @@ export default {
   },
 
   watch: {
-    // marker position
-    coordinates(val) {
-      if (!this.ready) return
-      if (!val) return
-      this.marker.setLngLat(val)
-    },
+    ...watchThenSet([
+      // marker position
+      { prop: 'coordinates', setter: 'lnglat' },
 
-    // marker offset
-    offset(val) {
-      if (!this.ready) return
-      if (!val) return
-      if (this.marker.setOffset) {
-        this.marker.setOffset(val)
-      }
-    },
+      // marker offset
+      'offset',
 
-    draggable(val) {
-      if (!this.ready) return
-      if (this.marker.setDraggable) {
-        this.marker.setDraggable(val)
-      }
-    },
+      // draggable
+      'draggable',
+
+      // other
+      'rotation',
+      'rotationAlignment',
+      'pitchAlignment',
+    ]),
   },
 
   beforeDestroy() {
@@ -124,6 +160,9 @@ export default {
         offset: this.offset,
         color: this.color,
         draggable: this.draggable,
+        rotation: this.rotation,
+        rotationAlignment: this.rotationAlignment,
+        pitchAlignment: this.pitchAlignment,
       }
       const el = this.$slots.marker && this.$slots.marker[0] && this.$slots.marker[0].elm
       if (el) {
