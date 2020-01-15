@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v0.4.0 2020-01-15
+
+- add more options for `MglMap` & `MglMarker` according to mapbox-gl js doc
+- clean up legacy code
+- make `MglMap` style `width` & `height` => `100%`
+- make `yarn dist` use `NODE_ENV=production`, so `rollup-plugin-vue` do not include css source-map
+
 ## v0.3.0 2019-12-15
 
 - add `MglControlGroup`
