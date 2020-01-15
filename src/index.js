@@ -50,7 +50,7 @@ globalify({ MglMarker, MglPopup })
 
 // source
 import MglSource from './component/MglSource.js'
-import MglLayer from './component//MglLayer.js'
+import MglLayer from './component/MglLayer.js'
 export { MglSource, MglLayer }
 globalify({ MglSource, MglLayer })
 
