@@ -1,6 +1,9 @@
 # root
 root: true
 
+env:
+  mocha: true
+
 # rules:
 # no-unused-vars: warn
 

@@ -108,3 +108,11 @@ module.exports = [
     ],
   },
 ]
+
+if (process.env.NODE_ENV === 'test') {
+  // commonjs only
+  const configs = module.exports
+  const config = configs[0]
+  config.output = [config.output[2]]
+  module.exports = config
+}

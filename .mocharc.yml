@@ -1,4 +1,7 @@
 require:
   - should
+  - ./test/bootstrap.js
+
+recursive: true
 
 timeout: 5000
